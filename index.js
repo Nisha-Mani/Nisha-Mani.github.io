@@ -26,6 +26,7 @@ function updateTodosUI(){
         updateTodosUI();
     }
     todoTitle.textContent = todo.title
+    todoTitle.classList.add("todo-title")
 
     if(todo.isDone){
         todoTitle.style.textDecoration = "line-through"
@@ -39,7 +40,7 @@ function updateTodosUI(){
    })
    if(allDone){
     todosInfo.textContent = "All todos done, good job!"
-    todosInfo.style.color = "green";
+    todosInfo.style.color = "#00EAD3";
    }
 
 }
