@@ -9,6 +9,9 @@ let todos = [{
 }]
 
 function updateTodosUI(){
+    let allDone = true;
+  todosInfo.textContent = ""
+   newTodoText.value = ""
    while(todosListUl.hasChildNodes()){
        todosListUl.removeChild(todosListUl.firstChild)
    }
@@ -18,15 +21,42 @@ function updateTodosUI(){
     let todoDoneCheckBox = document.createElement("input")
     todoDoneCheckBox.type = "checkbox"
     todoDoneCheckBox.checked = todo.isDone
+    todoDoneCheckBox.onchange = () => {
+        todo.isDone = !todo.isDone
+        updateTodosUI();
+    }
     todoTitle.textContent = todo.title
+
     if(todo.isDone){
         todoTitle.style.textDecoration = "line-through"
+    }
+    if(!todo.isDone) {
+        allDone = false
     }
     todoItem.appendChild(todoTitle)
     todoItem.appendChild(todoDoneCheckBox)
     todosListUl.appendChild(todoItem)
    })
+   if(allDone){
+    todosInfo.textContent = "All todos done, good job!"
+    todosInfo.style.color = "green";
+   }
+
 }
+newTodoBtn.onclick = () => {
+    if(!newTodoText.value || newTodoText.value.length === 0){
+        todosInfo.textContent = "TODO CANNOT BE EMPTY"
+        todosInfo.style.color = "red";
+        return;
+    }
+    let todo = {
+        title: newTodoText.value,
+        isDone: false
+    }
+    todos.push(todo)
+    updateTodosUI()
+}
+
 
 updateTodosUI();
 
